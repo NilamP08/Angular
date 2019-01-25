@@ -1,3 +1,69 @@
-<p>
-  login works!
-</p>
+
+<div class="container">
+  <nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">      
+             
+        <li>
+          <a routerLinkActive="active" routerLink="/home/registration">Regitration</a>
+        </li>        
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
+
+
+<div>
+<form [formGroup]="loginForm" class="form-horizontal" >
+
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Login page</h3>
+          </div>
+          <div class="panel-body">
+      
+      
+            <!--**********username*********-->
+            <div class="form-group" [ngClass]="{'has-error' : loginForm.get('username').errors 
+            && (loginForm.get('username').dirty ||loginForm.get('username').touched )}">
+            <label class="col-sm-2 control-label" for="username">UserName</label>
+            <div class="col-sm-8">
+              <input id="username" formControlName="username" type="text" class="form-control">
+              <span class="help-block" *ngIf="loginForm.get('username').errors && loginForm.get('username').dirty || loginForm.get('username').touched">
+                <span *ngIf="loginForm.get('username').errors?.required">* username is required</span>
+                <span *ngIf="loginForm.get('username').errors?.pattern"> * only small letter</span>
+                <span *ngIf="loginForm.get('username').errors?.uservalid"> * Allready exsit</span>
+              </span>
+            </div>
+          </div>
+            
+      
+            <!--**********Password*********-->
+
+            <div class="form-group" [ngClass]="{'has-error' : loginForm.get('password').errors 
+        && (loginForm.get('password').dirty || loginForm.get('password').touched )}">
+        <label class="col-sm-2 control-label" for="password">Password</label>
+        <div class="col-sm-8">
+          <input id="password" formControlName="password" type="password" class="form-control">
+          <span class="help-block" *ngIf="loginForm.get('password').errors && loginForm.get('password').dirty || loginForm.get('password').touched">
+            <span *ngIf="loginForm.get('password').errors?.required">* password is required</span>
+          </span>
+        </div>
+      </div>
+      
+            
+      
+             <div class="panel-footer">
+              <div class="btn-toolbar">
+                
+                <button class="btn btn-primary" (click)="addLogin()" >Login</button>&nbsp;&nbsp;              
+                
+                <a routerLinkActive="danger" href="http://localhost:4200/forgotPassword">Forgot Password</a>
+              
+              
+              </div>
+            </div>
+      
+          </div>
+        </div>
+      </form>
+    </div>

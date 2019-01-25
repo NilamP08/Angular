@@ -1,3 +1,42 @@
-<p>
-  dashbord works!
-</p>
+<div class="container">
+  <nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+
+      <li>
+        <a routerLinkActive="active" (click)="checkm()" >Login</a>
+      </li>
+
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
+
+
+<div>
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <ul class="nav navbar-nav">
+
+        <h1>Welcome to Dashboard</h1>
+
+
+      </ul>
+    </nav>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<div class="container">
+  <nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+
+      <p>
+        <button type="button" routerLink="/home" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </button>
+      </p>
+
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
