@@ -18,10 +18,13 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-if(this.c.isLoggedIn==false){
-  this.t.error('Please Login first !!');
-  this.r.navigateByUrl('home/login');
-}
-    return this.c.isLoggedIn;
+
+      if(this.c.isLoggednIn()){
+        return true;
+      }else{
+        this.r.navigate(["home/login"]);
+        return false;
+      }
+    
   }
 }

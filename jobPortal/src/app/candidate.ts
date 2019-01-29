@@ -13,5 +13,5 @@ export class Candidate{
     password:String;
     confirmPassword:String;
     username:String;
-    pic:String;
+    //pic:String;
 }

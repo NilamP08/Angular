@@ -80,14 +80,14 @@ export class RegistrationComponent implements OnInit {
     this.List();
   }
 
-  List() {
+  List(){
     this.s.getList().subscribe((data: any) => {
       this.states = data.docs;
       console.log(data);
     });
   }
   
-  Listcandidate() {
+  Listcandidate(){
     this.s.getListcandidate().subscribe((data: any) => {
     this.candidates = data.docs;
       console.log(this.candidates);     

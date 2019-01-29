@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import{Router}from '@angular/router'
 
 
 
@@ -16,12 +17,16 @@ export class CandidatesService {
   urlstate="http://localhost:8080/myapi/states/";
   urlchangePassword="http://localhost:8080/myapi/resetpassword/"
   urluploadimage="http://localhost:8080/myapi/ProfilePicture/";
+ 
+  funurl="http://localhost:8080/myapi/getoneman"
+
   private headerOptions: any = {
     'Content-type': 'application/json'
   }
   headers: HttpHeaders;
 
-  constructor(private http:HttpClient) { 
+  constructor(private http:HttpClient,
+    private r:Router) { 
     this.headers = new HttpHeaders(this.headerOptions); }
 
 
@@ -49,14 +54,54 @@ export class CandidatesService {
       return this.http.post<any>(this.urlmail,data);
     }
 
-    setLoggedIn(value:boolean){
-      this.loggedInStatus=value;
+    fun(token,username){
+      return this.http.post(this.funurl,{"token":token,"username":username});
     }
 
-    get isLoggedIn(){
-      return this.loggedInStatus;
+
+
+
+
+
+
+    sendToken(token: string){
+      localStorage.setItem("LoggedInUser", token)
     }
-    
+
+
+    sendUser(username: string){
+      console.log("@@inside service setuser ",username);
+      localStorage.setItem("username", username)
+    }
+
+    getToken(){
+      return localStorage.getItem("LoggedInUser")
+    }
+
+    getUser(){
+      console.log("@@inside service getuser ");
+      return localStorage.getItem("username")
+    }
+
+
+
+
+
+
+
+    isLoggednIn(){
+      return this.getToken() !== null;
+    }
+    logout(){
+      localStorage.removeItem("LoggedInUser");
+      localStorage.removeItem("username");
+      this.r.navigate(["Login"]);
+    }
+
+
+
+
+
     public uploadImage(image:File){
       const formData=new FormData();
       formData.append('pic',image);

@@ -17,23 +17,140 @@
     <nav class="navbar navbar-default">
       <ul class="nav navbar-nav">
 
-        <h1>Welcome to Dashboard</h1>
-
-
+        <h1>Welcome to Dashboard </h1>
+      
       </ul>
     </nav>
     <router-outlet></router-outlet>
   </div>
 </div>
 
+
+
+<div>
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <ul class="nav navbar-nav">
+
+
+
+          <div class="span7" >
+              <img src="http://localhost:8080/{{info.pic}}" class="img-square">
+              </div>
+
+              <table class="table table-striped">
+                <thead>
+
+                  <tr>
+                      <th scope="col">Title</th>
+                      <th scope="col">Information</th>
+                  </tr>
+
+                </thead>
+                <tbody>
+                  
+                  <tr>
+                    <td> First Name </td>
+                    <td> {{info.firstname}}</td>
+                  </tr>
+
+                  <tr>
+                      <td> Last Name </td>
+                      <td> {{info.lastname}}</td>
+                  </tr>
+
+                  <tr>
+                      <td> Birth Date </td>
+                      <td> {{info.birthdate}}</td>
+                  </tr>
+
+                  <tr>
+                      <td> Gender </td>
+                      <td> {{info.gender}}</td>
+                  </tr>
+
+
+                  <tr>
+                      <td> Hobies </td>
+                      <td> {{info.hobby}}</td>
+                  </tr>
+
+
+                  <tr>
+                      <td> Phone number </td>
+                      <td> {{info.phoneNo}}</td>
+                  </tr>
+
+
+                  <tr>
+                      <td> Address </td>
+                      <td> {{info.address}}</td>
+                  </tr>
+
+
+                  <tr>
+                      <td> City </td>
+                      <td> {{info.city}}</td>
+                  </tr>
+
+
+                  <tr>
+                      <td> State </td>
+                      <td> {{info.state}}</td>
+                  </tr>
+
+
+                  <tr>
+                      <td> Zip code </td>
+                      <td> {{info.zipcode}}</td>
+                  </tr>
+
+
+                  <tr>
+                      <td> Email Id  </td>
+                      <td> {{info.email}}</td>
+                  </tr>
+
+
+                  <tr>
+                      <td> Password  </td>
+                      <td> {{info.password}}</td>
+                  </tr>
+
+
+                  <tr>
+                      <td> Username  </td>
+                      <td> {{info.username}}</td>
+                  </tr>
+
+                </tbody>
+
+      </table>
+      
+      
+      
+      </ul>
+    </nav>
+   
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
 <div class="container">
   <nav class="navbar navbar-default">
     <ul class="nav navbar-nav">
 
       <p>
-        <button type="button" routerLink="/home" class="btn btn-default btn-sm">
+        <button type="button"  (click)="logout()" class="btn btn-default btn-sm">
           <span class="glyphicon glyphicon-log-out"></span> Log out
-        </button>
+        </button>        
       </p>
 
     </ul>

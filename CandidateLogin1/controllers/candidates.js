@@ -2,6 +2,8 @@ var candidateModel = require("../models/candidate");
 var nodemailer = require("nodemailer");
 const Cryptr = require("cryptr");
 var multer = require("multer");
+var jwt = require("jwt-simple");
+var config = require("../config/config");
 
 var set;
 
@@ -54,7 +56,7 @@ var candidates = {
     var candidate = new candidateModel();
     candidate.firstname = req.body.firstname;
     candidate.lastname = req.body.lastname;
-    candidate.birthdate = req.body.birthdate;
+    candidate.birthdate = req.body.birthdate.slice(0, 10);
     candidate.gender = req.body.gender;
     candidate.hobby = req.body.hobby;
     candidate.phoneNo = req.body.phoneNo;
@@ -126,7 +128,7 @@ var candidates = {
   /*
    *
    *loginCheck function validates whether username and pasword is right or wrong
-   */
+   
 
   logincheck: function(req, res) {
     var flag = null;
@@ -167,6 +169,46 @@ var candidates = {
         });
       }
     });
+  },
+  */
+
+  logincheck: function(req, res) {
+    console.log(" @@@ Inside logincheck");
+    candidateModel.findOne(
+      {
+        $and: [{ username: req.body.username }, { password: req.body.password }]
+      },
+      function(err, user) {
+        //console.log("***********************************");
+        // console.log(user);
+
+        if (err || !user) {
+          res.status(400).json({
+            status: "error",
+            message: "Auth validate :not an valid :" + err,
+            docs: ""
+          });
+        } else if (user != null) {
+          var payload = { username: user.username };
+          //var secret = config.secretKey;
+          var token = jwt.encode(payload, config.secretKey);
+          // decode
+          //var decoded = jwt.decode(token,secretKey);
+          //console.log(decoded); //=> { foo: 'bar' }
+          res.status(200).json({
+            status: true,
+            message: "Auth validate:login sucessfull",
+            token: token,
+            username: req.body.username,
+            alldata: user
+          });
+        } else {
+          res.status(400).json({
+            status: false
+          });
+        }
+      }
+    );
   },
 
   /*
