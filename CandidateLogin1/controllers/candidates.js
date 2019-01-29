@@ -58,7 +58,7 @@ var candidates = {
     candidate.lastname = req.body.lastname;
     candidate.birthdate = req.body.birthdate.slice(0, 10);
     candidate.gender = req.body.gender;
-    candidate.hobby = req.body.hobby;
+    candidate.hobby = filter_array(req.body.hobby);
     candidate.phoneNo = req.body.phoneNo;
     candidate.address = req.body.address;
     candidate.city = req.body.city;
@@ -179,16 +179,16 @@ var candidates = {
         $and: [{ username: req.body.username }, { password: req.body.password }]
       },
       function(err, user) {
-        //console.log("***********************************");
-        // console.log(user);
+        console.log("***********************************");
+        //console.log(user);
 
         if (err || !user) {
-          res.status(400).json({
-            status: "error",
+          res.status(200).json({
+            status: false,
             message: "Auth validate :not an valid :" + err,
             docs: ""
           });
-        } else if (user != null) {
+        } else {
           var payload = { username: user.username };
           //var secret = config.secretKey;
           var token = jwt.encode(payload, config.secretKey);
@@ -199,12 +199,7 @@ var candidates = {
             status: true,
             message: "Auth validate:login sucessfull",
             token: token,
-            username: req.body.username,
-            alldata: user
-          });
-        } else {
-          res.status(400).json({
-            status: false
+            username: req.body.username
           });
         }
       }
@@ -386,5 +381,28 @@ var candidates = {
     });
   }
 };
+
+/*
+ *
+ *this function is use to remove spaces or special characters from array string.
+ */
+
+function filter_array(test_array) {
+  console.log("inside filter array");
+  var index = -1,
+    arr_length = test_array ? test_array.length : 0,
+    resIndex = -1,
+    result = [];
+
+  while (++index < arr_length) {
+    var value = test_array[index];
+
+    if (value) {
+      result[++resIndex] = value;
+    }
+  }
+  console.log(result);
+  return result;
+}
 
 module.exports = candidates;

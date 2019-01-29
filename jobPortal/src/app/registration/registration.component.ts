@@ -64,12 +64,12 @@ export class RegistrationComponent implements OnInit {
       gender: ['', Validators.required],
       hobby: new FormArray(formControls),
       phoneNo: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      address: ['', Validators.required],
+      address: [''],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      zipcode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      zipcode: ['', [Validators.required,  Validators.pattern('^[0-9]*$'),Validators.minLength(6), Validators.maxLength(6)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['',[Validators.required,Validators.pattern('^[A-Za-z](?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]$'),Validators.minLength(3), Validators.maxLength(8)]],
+      password: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(8)]],
       confirmPassword: ['', Validators.required],
       username: ['', [Validators.required, Validators.pattern('^[a-z]*$')]],
       pic: ['', Validators.required]
@@ -123,12 +123,7 @@ export class RegistrationComponent implements OnInit {
     });
     reader.readAsDataURL(file);
    
- }
-
-
-
-
-  
+ } 
 
 
   add() {
@@ -151,9 +146,7 @@ export class RegistrationComponent implements OnInit {
         this.t.error('Sorry..!! Username alredy in use');
         this.r.navigateByUrl('home/registration');
       } else {
-        ////////addd image 
 
-    ////////////
 
         this.t.success('Sucessfully Registration done!');
         this.r.navigateByUrl('home/login');

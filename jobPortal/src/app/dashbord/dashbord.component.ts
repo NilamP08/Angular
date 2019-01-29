@@ -12,6 +12,7 @@ import{Router} from'@angular/router';
 export class DashbordComponent implements OnInit {
 
   info;
+  picname;
 
   token;
   username;
@@ -24,13 +25,14 @@ export class DashbordComponent implements OnInit {
   ngOnInit() {
   
     this.token=this.s.getToken();
-    this.username=this.s.getUser();
+   // this.username=this.s.getUser();
     console.log(this.token);
     
     
-    this.s.fun(this.token,this.username).subscribe((res:any)=> { 
+    this.s.fun(this.token).subscribe((res:any)=> { 
       this.info=res.user;
-      console.log(res.user.username);
+      this.picname=this.info.pic;
+     // console.log(res.user.username);
       console.log(res.user);
       console.log(this.info);
     });

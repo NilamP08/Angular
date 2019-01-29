@@ -46,8 +46,8 @@ export class LoginComponent implements OnInit {
       if (this.loginForm.valid) {
         this.s.sendToken(res.token);
         console.log(res.token);
-        this.s.sendUser(res.username);
-        console.log(res.username);
+        //this.s.sendUser(res.username);
+        //console.log(res.username);
              
       }
 

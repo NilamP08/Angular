@@ -54,8 +54,8 @@ export class CandidatesService {
       return this.http.post<any>(this.urlmail,data);
     }
 
-    fun(token,username){
-      return this.http.post(this.funurl,{"token":token,"username":username});
+    fun(token){
+      return this.http.post(this.funurl,{"token":token});
     }
 
 
@@ -65,25 +65,26 @@ export class CandidatesService {
 
 
     sendToken(token: string){
-      localStorage.setItem("LoggedInUser", token)
+      localStorage.setItem("LoggedInUserToken", token)
     }
 
+    getToken(){
+      return localStorage.getItem("LoggedInUserToken")
+    }
 
+/*
     sendUser(username: string){
       console.log("@@inside service setuser ",username);
       localStorage.setItem("username", username)
     }
 
-    getToken(){
-      return localStorage.getItem("LoggedInUser")
-    }
 
     getUser(){
       console.log("@@inside service getuser ");
       return localStorage.getItem("username")
     }
 
-
+*/
 
 
 
@@ -92,8 +93,9 @@ export class CandidatesService {
     isLoggednIn(){
       return this.getToken() !== null;
     }
+
     logout(){
-      localStorage.removeItem("LoggedInUser");
+      localStorage.removeItem("LoggedInUserToken");
       localStorage.removeItem("username");
       this.r.navigate(["Login"]);
     }

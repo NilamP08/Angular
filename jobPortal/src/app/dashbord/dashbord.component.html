@@ -8,7 +8,7 @@
 
     </ul>
   </nav>
-  <router-outlet></router-outlet>
+ 
 </div>
 
 
@@ -17,11 +17,11 @@
     <nav class="navbar navbar-default">
       <ul class="nav navbar-nav">
 
-        <h1>Welcome to Dashboard </h1>
+        <h1>Welcome {{info.firstname}} </h1>
       
       </ul>
     </nav>
-    <router-outlet></router-outlet>
+  
   </div>
 </div>
 
@@ -33,12 +33,14 @@
       <ul class="nav navbar-nav">
 
 
-
-          <div class="span7" >
-              <img src="http://localhost:8080/{{info.pic}}" class="img-square">
+  <div class="container-fluid well span10">
+          <div class="picture" >
+              <img src="http://localhost:8080/{{picname}}" class="img-circle" width="304" height="236">
               </div>
-
-              <table class="table table-striped">
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<section class="card" >
+              <table class="table ">
+                <b>
                 <thead>
 
                   <tr>
@@ -71,7 +73,7 @@
 
 
                   <tr>
-                      <td> Hobies </td>
+                      <td> Hobbies </td>
                       <td> {{info.hobby}}</td>
                   </tr>
 
@@ -124,24 +126,18 @@
                   </tr>
 
                 </tbody>
+              </b>
 
       </table>
-      
-      
+</section>
+</div>
+         
       
       </ul>
     </nav>
    
   </div>
 </div>
-
-
-
-
-
-
-
-
 
 <div class="container">
   <nav class="navbar navbar-default">
@@ -155,5 +151,5 @@
 
     </ul>
   </nav>
-  <router-outlet></router-outlet>
+ 
 </div>

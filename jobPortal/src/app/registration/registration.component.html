@@ -175,6 +175,7 @@
           <input id="zipcode" formControlName="zipcode" type="text" class="form-control">
           <span class="help-block" *ngIf="userForm.get('zipcode').errors && userForm.get('zipcode').dirty || userForm.get('zipcode').touched">
             <span *ngIf="userForm.get('zipcode').errors?.required"> * zipcode is required</span>
+            <span *ngIf="userForm.get('zipcode').errors?.pattern"> * Only numbers accepted</span>
             <span *ngIf="userForm.get('zipcode').errors?.minlength || userForm.get('zipcode').errors?.maxlength"> * It
               should be 6 digits</span>
           </span>
@@ -204,7 +205,7 @@
           <input id="password" formControlName="password" type="password" class="form-control">
           <span class="help-block" *ngIf="userForm.get('password').errors && userForm.get('password').dirty || userForm.get('password').touched">
             <span *ngIf="userForm.get('password').errors?.required">* Password is required</span>
-            <span *ngIf="userForm.get('password').errors?.pattern">* Password should start with alphabets, should have atleast one number and one symbol</span>
+            
             <span *ngIf="userForm.get('password').errors?.minlength || userForm.get('password').errors?.maxlength"> * It
               should be 4-8 character long</span>
           </span>
@@ -240,7 +241,7 @@
         </div>
       </div>
 
-      <!--uplod image-->
+      <!--uplod image-  [disabled]="userForm.invalid"  -->
       <div class="form-group" [ngClass]="{'has-error' : userForm.get('pic').errors 
       && (userForm.get('pic').dirty || userForm.get('pic').touched )}">
           <input formControlName="pic" id="pic" #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
