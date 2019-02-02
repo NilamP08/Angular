@@ -4,6 +4,7 @@ const Cryptr = require("cryptr");
 var multer = require("multer");
 var jwt = require("jwt-simple");
 var config = require("../config/config");
+var getone = require("./getone");
 
 var set;
 
@@ -33,18 +34,21 @@ var candidates = {
     });
   },
 
-  /*
-	getOne: function (req, res) {
-
-		candidateModel.findById(req.params.id, function (err, doc) {
-			if (err) {
-				res.status(500).json({ status: 'error', message: 'Datebase Error:' + err, doc: { value: req.params.id } });
-			}
-			else {
-				res.status(200).json({ status: 'success', message: 'Success', docs: doc });
-			}
-		});
-	},*/
+  getOne: function(req, res) {
+    candidateModel.findById(req.params.id, function(err, doc) {
+      if (err) {
+        res.status(500).json({
+          status: "error",
+          message: "Datebase Error:" + err,
+          doc: { value: req.params.id }
+        });
+      } else {
+        res
+          .status(200)
+          .json({ status: "success", message: "Success", docs: doc });
+      }
+    });
+  },
 
   /*
    *
@@ -58,7 +62,7 @@ var candidates = {
     candidate.lastname = req.body.lastname;
     candidate.birthdate = req.body.birthdate.slice(0, 10);
     candidate.gender = req.body.gender;
-    candidate.hobby = filter_array(req.body.hobby);
+    candidate.hobies = filter_array(req.body.hobies);
     candidate.phoneNo = req.body.phoneNo;
     candidate.address = req.body.address;
     candidate.city = req.body.city;
@@ -90,6 +94,7 @@ var candidates = {
           }
         }
       }
+
       if (flag == 1) {
         console.log("email already in use");
         res.status(200).json({
@@ -189,7 +194,7 @@ var candidates = {
             docs: ""
           });
         } else {
-          var payload = { username: user.username };
+          var payload = { _id: user._id };
           //var secret = config.secretKey;
           var token = jwt.encode(payload, config.secretKey);
           // decode
@@ -198,8 +203,7 @@ var candidates = {
           res.status(200).json({
             status: true,
             message: "Auth validate:login sucessfull",
-            token: token,
-            username: req.body.username
+            token: token
           });
         }
       }
@@ -243,10 +247,11 @@ var candidates = {
           }
         });
         var mailOptions = {
-          from: "nilam.pawar070@gmail.com",
+          // from: "nilam.pawar070@gmail.com",
           to: req.body.email,
-          subject: "Sending Email using Node.js ",
-          text: `http://localhost:4200/resetPassword/${encryptedString}`
+          subject: "Sending Email from  job portal ",
+          text: `To change your Password click here : \n http://localhost:4200/resetPassword/${encryptedString}  \n\n\n\n\n
+          Note: This is an auto-generated mail. Please do not reply. `
         };
         transporter.sendMail(mailOptions, function(error, info) {
           if (error) {
@@ -327,7 +332,6 @@ var candidates = {
       }
     });
   },
-
   /*
    *
    *uploadPicture function use to upload picture.
@@ -379,6 +383,65 @@ var candidates = {
         });
       }
     });
+  },
+
+  updateinfo: function(req, res) {
+    console.log("updateinfoooooooooooo");
+    //var candidate = new candidateModel();
+    var token = req.body.token || req.headers["token"];
+    var decoded = jwt.decode(token, config.secretKey);
+    var myquery = { _id: decoded._id };
+    var newvalues = {
+      $set: {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        birthdate: req.body.birthdate.slice(0, 10),
+        gender: req.body.gender,
+        // hobies: filter_array(req.body.hobies),
+        phoneNo: req.body.phoneNo,
+        address: req.body.address,
+        city: req.body.city,
+        state: req.body.state,
+        zipcode: req.body.zipcode,
+        email: req.body.email,
+        password: req.body.password,
+        confirmPassword: req.body.confirmPassword
+        // username: req.body.username
+        // pic = this.set,
+      }
+    };
+    candidateModel.updateOne(myquery, newvalues, function(err) {
+      if (err) {
+        throw err;
+      } else {
+        res.status(200).json({
+          status: true,
+          message: "success",
+          docs: { err: "Error" }
+        });
+
+        console.log("1 document updated");
+      }
+    });
+  },
+
+  usercheck: function(req, res) {
+    candidateModel.findOne(
+      {
+        $and: [{ username: req.body.username }]
+      },
+      function(err, user) {
+        if (err || !user) {
+          res.status(200).json({
+            status: true
+          });
+        } else {
+          res.status(200).json({
+            status: false
+          });
+        }
+      }
+    );
   }
 };
 

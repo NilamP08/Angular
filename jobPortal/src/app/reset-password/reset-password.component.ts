@@ -4,6 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MustMatch } from './password.validation';
 
 
 
@@ -27,7 +28,12 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.resetForm = this.fb.group({
-      password: ['', Validators.required]
+      password: ['', Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{4,8}$')],
+      confirmPassword: ['', Validators.required]
+
+    },
+    {
+      validator: MustMatch('password', 'confirmPassword')
     }),
       this.Router.params.subscribe(params => {
         this.email = params['email'];
@@ -49,8 +55,7 @@ export class ResetPasswordComponent implements OnInit {
       }
 
     });
-
-
+    
   }
 
 }

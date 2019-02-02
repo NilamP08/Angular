@@ -28,20 +28,19 @@ class ImageSnippet {
 export class RegistrationComponent implements OnInit {
 
 
-  hobby= [
-    { id: 1, genre: 'Cricket' },
-    { id: 2, genre: 'Singing' },
-    { id: 3, genre: 'Dancing' },
-    { id: 4, genre: 'Acting' }
+   hobby= [
+    { id: 1,  genre: 'Cricket' },
+    { id: 2,  genre: 'Singing' },
+    { id: 3,  genre: 'Dancing' },
+    { id: 4,  genre: 'Acting' }
 ];
 
-
-
-
   selectedFile: ImageSnippet;
+  usercheck:any;
+  value1;
 
   states: State[];
-  candidates: Candidate[];
+  candidates: Candidate[]; 
   userForm: FormGroup;
   public path;
   public imageinput;
@@ -50,26 +49,25 @@ export class RegistrationComponent implements OnInit {
     private s: CandidatesService,
     private t: ToastrService,
     private r: Router) {
-
-      const formControls = this.hobby.map(control => new FormControl(false));
+      const formControls = this. hobby.map(control => new FormControl(false));
      }
 
   ngOnInit() {
-    const formControls = this.hobby.map(control => new FormControl(false));
+    const formControls = this. hobby.map(control => new FormControl(false));
 
     this.userForm = this.fb.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       birthdate: ['', Validators.required],
       gender: ['', Validators.required],
-      hobby: new FormArray(formControls),
+       hobby: new FormArray(formControls),
       phoneNo: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       address: [''],
-      city: ['', Validators.required],
+      city: ['',[ Validators.required,Validators.pattern('^[a-zA-Z]*$')]],
       state: ['', Validators.required],
-      zipcode: ['', [Validators.required,  Validators.pattern('^[0-9]*$'),Validators.minLength(6), Validators.maxLength(6)]],
+      zipcode: ['', [Validators.required,Validators.pattern('^[0-9]*$'),Validators.minLength(6), Validators.maxLength(6)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(8)]],
+      password: ['',[Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{4,8}$'),Validators.minLength(3), Validators.maxLength(8)]],
       confirmPassword: ['', Validators.required],
       username: ['', [Validators.required, Validators.pattern('^[a-z]*$')]],
       pic: ['', Validators.required]
@@ -77,20 +75,28 @@ export class RegistrationComponent implements OnInit {
     }, {
         validator: MustMatch('password', 'confirmPassword')
       })
+
+      this.userForm.get('username').valueChanges.subscribe(value=>{console.log(value);
+      this.value1=value});
+
+
     this.List();
+    this. Listcandidate();
+    
   }
 
-  List(){
+  List(){ 
     this.s.getList().subscribe((data: any) => {
       this.states = data.docs;
-      console.log(data);
+      console.log("States :",data);
     });
   }
   
   Listcandidate(){
+  
     this.s.getListcandidate().subscribe((data: any) => {
     this.candidates = data.docs;
-      console.log(this.candidates);     
+      console.log("All Candidates :",data);     
       //console.log(data.docs[0].username);    
       //console.log(this.candidates[0].username);    
     });
@@ -102,43 +108,37 @@ export class RegistrationComponent implements OnInit {
     const file : File = imageInput.files[0];
     const reader = new FileReader();
       reader.addEventListener('load',(event : any)=>{
-   
+
      this.selectedFile = new ImageSnippet(event.target.result,file)
      this.s.uploadImage(this.selectedFile.file).subscribe(
        (res:any) => {
-
        // this.Path = res.status;
         if(res.status == true){
           this.t.success(res.message);
         }
         if(res.status == false){
           this.t.error(res.err)
-        }
-     
+        }     
        },
+
        (err) => {
          console.log(err);
       
        })     
     });
-    reader.readAsDataURL(file);
-   
+    reader.readAsDataURL(file);   
  } 
 
 
-  add() {
-    console.log(this.userForm.value);
-    console.log(this.userForm.get('pic').value);
-
+  add() {     
+    
 /////check box
-    const selectedPreferences = this.userForm.value.hobby
-    .map((checked, index) => checked ? this.hobby[index].genre : null);    
-    this.userForm.controls['hobby'].patchValue(selectedPreferences);
-    console.log(this.userForm.value);
-
+    const selectedPreferences = this.userForm.value. hobby
+    .map((checked,index) => checked ? this. hobby[index]. genre : null);    
+    this.userForm.controls['hobby'].patchValue(selectedPreferences);    
 //////////add other data
-    this.s.add(this.userForm.value).subscribe((res: any) => {
-      console.log("******",res);
+    this.s.add(this.userForm.value).subscribe((res: any) => {    
+      console.log(res);
       if (res.status == false) {
         this.t.error('Sorry..!! Email alredy in use');
         this.r.navigateByUrl('home/registration');
@@ -146,17 +146,25 @@ export class RegistrationComponent implements OnInit {
         this.t.error('Sorry..!! Username alredy in use');
         this.r.navigateByUrl('home/registration');
       } else {
-
-
         this.t.success('Sucessfully Registration done!');
         this.r.navigateByUrl('home/login');
 
       }
-    })
-
-      ///////////////
-     
+    })    
    
+  }
+
+  checkuser()
+  {
+    this.s.checkuser({"username":this.userForm.value.username}).subscribe((res:any)=>{
+    console.log(res);
+  if(res.status==true)
+{
+  this.usercheck=true;
+}else{
+  this.usercheck=false;
+}});
+    
   }
 
 

@@ -8,11 +8,14 @@ module.exports = function(req, res, next) {
     if (
       req.path == "/myapi/login/" ||
       req.path == "/myapi/states/" ||
-      req.path == "/myapi/candidate/" ||
+      req.path == "/myapi/candidates/" ||
       req.path == "/myapi/sendmail/" ||
       req.path == "/myapi/resetpassword/" ||
       req.path == "/myapi/ProfilePicture/" ||
-      req.path == "/myapi/getoneman/"
+      req.path == "/myapi/getoneman/" ||
+      req.path == "/myapi/update" ||
+      req.path == "/myapi/candidate/" ||
+      req.path == "/myapi/usercheck/"
     ) {
       console.log("inside iffff");
       next();
@@ -22,7 +25,7 @@ module.exports = function(req, res, next) {
 
       candidateModel.findOne(
         {
-          $and: [{ username: decoded.username }]
+          $and: [{ _id: decoded._id }]
         },
         function(err, user) {
           if (err || !user) {

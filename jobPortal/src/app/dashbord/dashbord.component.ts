@@ -13,7 +13,6 @@ export class DashbordComponent implements OnInit {
 
   info;
   picname;
-
   token;
   username;
 
@@ -29,24 +28,24 @@ export class DashbordComponent implements OnInit {
     console.log(this.token);
     
     
-    this.s.fun(this.token).subscribe((res:any)=> { 
+    this.s.showinfo(this.token).subscribe((res:any)=> { 
       this.info=res.user;
       this.picname=this.info.pic;
-     // console.log(res.user.username);
+       // console.log(res.user.username);
       console.log(res.user);
       console.log(this.info);
-    });
-
-    
+    });   
     
   }
   checkm(){
+    console.log("inside check()");     
+    this.t.success('You are alredy Loged in !!');    
+  }
 
-    console.log("inside check()");
-    this.r.navigateByUrl('/');
-  
-    this.t.success('You are alredy Loged in !!');
-    
+  updatecheck(){
+    this.r.navigateByUrl('update');
+    //this.t.success('Request Accepted for update !!');   
+
   }
   logout(){
     this.s.logout();

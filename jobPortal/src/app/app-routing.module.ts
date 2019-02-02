@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { UpdateComponent } from './update/update.component';
 
 const routes: Routes = [
   {path:'home/registration',component:RegistrationComponent},
@@ -15,6 +17,8 @@ const routes: Routes = [
   {path:'forgotPassword',component:ForgotPasswordComponent},
   {path:'resetPassword/:email',component:ResetPasswordComponent},
   {path:'home',component:HomeComponent},
+  {path:'update',component:UpdateComponent,canActivate:[AuthGuard]},  
+  {path:'**',component:PageNotFoundComponent},
   {path: '', component:DashbordComponent, pathMatch:'full', canActivate:[AuthGuard]}  
 ];
 

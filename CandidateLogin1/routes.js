@@ -20,5 +20,7 @@ router.post("/myapi/state/", states.create);
 router.post("/myapi/ProfilePicture/", candidates.uploadPiture);
 
 router.post("/myapi/getoneman/", getone.show);
+router.post("/myapi/update/", candidates.updateinfo);
+router.post("/myapi/usercheck/", candidates.usercheck);
 
 module.exports = router;

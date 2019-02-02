@@ -28,6 +28,8 @@ import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { CommonModule } from '@angular/common';
 import{HttpModule} from '@angular/http';
 import { CandidatesService } from './candidates.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import{UpdateComponent}from './update/update.component';
 
 
 
@@ -40,7 +42,10 @@ import { CandidatesService } from './candidates.service';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     HomeComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    PageNotFoundComponent,
+    UpdateComponent
+    
   ],
   imports: [
     BrowserModule,

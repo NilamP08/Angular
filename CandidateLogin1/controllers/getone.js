@@ -4,13 +4,13 @@ var candidateModel = require("../models/candidate");
 var config = require("../config/config");
 
 var getone = {
-  show: function(req, res, next) {
+  show: function(req, res) {
     var token = req.body.token || req.headers["token"];
     var decoded = jwt.decode(token, config.secretKey);
 
     candidateModel.findOne(
       {
-        $and: [{ username: decoded.username }]
+        $and: [{ _id: decoded._id }]
       },
       function(err, user) {
         if (err || !user) {

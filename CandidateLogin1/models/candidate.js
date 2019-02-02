@@ -6,7 +6,7 @@ var candidate = new Schema({
   lastname: String,
   birthdate: String,
   gender: String,
-  hobby: [{ type: String, enum: ["Cricket", "Singing", "Dancing", "Acting"] }],
+  hobies: [{ type: String, enum: ["Cricket", "Singing", "Dancing", "Acting"] }],
   phoneNo: String,
   address: String,
   city: String,
