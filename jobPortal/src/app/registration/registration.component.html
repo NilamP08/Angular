@@ -1,7 +1,32 @@
+
+
 <html>
-  <body> 
+
+    <nav class="navbar navbar-inverse"
+    style="width: 100%; height: 79px; background-color: rgb(173, 190, 190);margin-bottom: 90px">
+       <div class="container">
+         
+           <h1 style="padding-bottom:43px" >Job Portal</h1>
+           <div  >
+        
+         <ul class="nav navbar-nav link" style="display: inline-block">
+
+           <li style="font-size: 20px;size: 20px"><a style="color: black" href="home"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>        
+        
+           <li style="font-size: 20px"><a style="color: black" (click)="registration()"  ><span class="glyphicon glyphicon-user"></span> Registration</a></li>
+           <li style="font-size: 20px"><a style="color: black" href="home/login"><span class="glyphicon glyphicon-log-in" (click)="logout()"></span> Login</a></li>
+          
+         </ul>
+        </div>
+       </div>
+     </nav>
+
+
+  <body>       
 
 <header>
+
+   
 
 <div class="container " style="width: 70%">
    
@@ -10,7 +35,7 @@
   <div class="panel panel-primary first">
     <div class="panel-heading ">
        
-      <h3 class="modal-title " style="text-align: center;color: rgb(22, 22, 19); box-shadow: 0 9px 18px 0 rgba(0,0,0,0.4);"> <p class="glyphicon glyphicon-user"></p> Registration &nbsp;&nbsp;</h3>
+      <h3 class="modal-title " style="text-align: center; font-family:Didot,serif;   color: rgb(22, 22, 19); box-shadow: 0 9px 18px 0 rgba(0,0,0,0.4);"> <p class="glyphicon glyphicon-user"></p> Registration &nbsp;&nbsp;</h3>
     </div>
     <div class="panel-body">
 
@@ -24,7 +49,8 @@
           <input id="firstname" formControlName="firstname" type="text" class="form-control">
           <span class="help-block  " *ngIf="userForm.get('firstname').errors && 
             userForm.get('firstname').dirty || userForm.get('firstname').touched">
-            <span *ngIf="userForm.get('firstname').errors?.required"> First Name is required</span>
+            <span *ngIf="userForm.get('firstname').errors?.required"> * First Name is required</span>
+            <span *ngIf="userForm.get('firstname').errors?.pattern"> * Cantains only alphabets</span>
           </span>
         </div>
       </div>
@@ -38,6 +64,7 @@
           <input id="lastname" type="text" class="form-control" formControlName="lastname">
           <span class="help-block  " *ngIf="userForm.get('lastname').errors && userForm.get('lastname').dirty || userForm.get('lastname').touched">
             <span *ngIf="userForm.get('lastname').errors?.required"> Last Name is required</span>
+            
           </span>
         </div>
       </div>
@@ -65,10 +92,10 @@
         <label class="col-md-2 control-label">Gender</label>
         <div class="col-sm-8">
           <label class="radio-inline">
-            <input type="radio" id="female" value="female" formControlName="gender">Female
+            <input type="radio" id="female" value="female" formControlName="gender">&nbsp;&nbsp;&nbsp;Female
           </label>
           <label class="radio-inline">
-            <input type="radio" id="male" value="male" formControlName="gender">Male
+            <input type="radio" id="male" value="male" formControlName="gender">&nbsp;&nbsp;&nbsp;Male
           </label>
           <span class="help-block  " *ngIf="userForm.get('gender').errors && userForm.get('gender').dirty || userForm.get('gender').touched">
             <span *ngIf="userForm.get('gender').errors?.required"> Required</span>
@@ -183,11 +210,13 @@
         && (userForm.get('email').dirty || userForm.get('email').touched )}">
         <label class="col-sm-2 control-label" for="email">Email</label>
         <div class="col-sm-8">
-          <input id="email" formControlName="email" type="text" class="form-control">
+          <input id="email" formControlName="email" type="text" class="form-control" (input)="checkemail()">
           <span class="help-block" *ngIf="userForm.get('email').errors && userForm.get('email').dirty || userForm.get('email').touched">
             <span *ngIf="userForm.get('email').errors?.required || userForm.get('email').errors?.email ">* email is
               required</span>
             </span>
+            <span class=" success"   *ngIf="emailcheck">{{emailvalue}} &nbsp; &nbsp; &nbsp; is valid emailid </span>
+          <span *ngIf="!emailcheck">*{{emailvalue}} alredy in use </span>
         </div>
       </div>
 
@@ -210,18 +239,26 @@
 
       <div class="form-group" [ngClass]="{'has-error' : userForm.get('confirmPassword').errors 
         && (userForm.get('confirmPassword').dirty || userForm.get('confirmPassword').touched )}">
-        <label class="col-sm-2 control-label" for="confirmPassword">confirm Password</label>
+        <label class="col-sm-2 control-label" for="confirmPassword">Confirm Password</label>
         <div class="col-sm-8">
           <input [class.is-invalid]="userForm.get('confirmPassword').errors?.misMatch" id="confirmpassword"
             formControlName="confirmPassword" type="password" class="form-control">
           <span class="help-block" *ngIf="userForm.get('confirmPassword').errors && userForm.get('confirmPassword').dirty || userForm.get('confirmPassword').touched">
-            <span *ngIf="userForm.get('confirmPassword').errors?.required">*Confirm Password is required</span>
+            <span *ngIf="userForm.get('confirmPassword').errors?.required">* Confirm Password is required</span>
             <span *ngIf="userForm.get('confirmPassword').errors?.mustMatch">* Password not matching </span>
           </span>
         </div>
       </div>
 
-      <!--********** UserName *********-->
+      <!--********** UserName *********
+
+        <span class=" success"   *ngIf="usercheck && userForm.get('username').dirty || userForm.get('username').touched ">{{value1}} &nbsp; &nbsp; &nbsp; is valid username </span>
+          <span *ngIf="!usercheck && userForm.get('username').dirty || userForm.get('username').touched  ">*username {{value1}} alredy in use </span>
+      
+      
+      
+      
+      -->
 
       <div class="form-group" [ngClass]="{'has-error' : userForm.get('username').errors 
         && (userForm.get('username').dirty || userForm.get('username').touched )}">
@@ -230,19 +267,16 @@
           <input id="username" formControlName="username" type="text" class="form-control" (input)="checkuser()"> 
           <span class="help-block" *ngIf="userForm.get('username').errors && userForm.get('username').dirty || userForm.get('username').touched">
             <span *ngIf="userForm.get('username').errors?.required">* username is required</span>
-            <span *ngIf="userForm.get('username').errors?.pattern"> * Only small letters accepted</span>
-                      
+            <span *ngIf="userForm.get('username').errors?.pattern"> * Only small letters accepted</span>                      
           </span>
-          <span class=" success"   *ngIf="usercheck">{{value1}} &nbsp; &nbsp; &nbsp; is valid username </span>
-          <span *ngIf="!usercheck ">*username {{value1}} alredy in use </span>
-
-          
+          <span class=" success"   *ngIf="usercheck ">{{uservalue}} &nbsp; &nbsp; &nbsp; is valid username </span>
+          <span *ngIf="!usercheck">*username {{uservalue}} alredy in use </span>       
             
         </div>
       </div>
      <span>{{value1}}</span>
 
-      <!--uplod image-[disabled]="userForm.invalid"  -->
+      <!--uplod image-  [disabled]="userForm.invalid"  -->
       <div class="form-group" [ngClass]="{'has-error' : userForm.get('pic').errors 
       && (userForm.get('pic').dirty || userForm.get('pic').touched )}">
       <label class="col-sm-2 control-label" for="pic">Profile Picture</label>
@@ -257,7 +291,7 @@
        
         <div class="btn-toolbar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button class="btn btn-primary" [disabled]="userForm.invalid" (click)="add()" >Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <button class="btn  btn-danger"  (click)="cancel()">Cancel</button>
+          <button class="btn  btn-toolbar"  (click)="cancel()">Cancel</button>
         </div>
       </div>
   </div>

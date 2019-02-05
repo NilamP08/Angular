@@ -22,5 +22,6 @@ router.post("/myapi/ProfilePicture/", candidates.uploadPiture);
 router.post("/myapi/getoneman/", getone.show);
 router.post("/myapi/update/", candidates.updateinfo);
 router.post("/myapi/usercheck/", candidates.usercheck);
+router.post("/myapi/emailcheck/",candidates.emailcheck);
 
 module.exports = router;

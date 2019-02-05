@@ -99,6 +99,16 @@
           </label>
           </div>
           </div> -->
+
+          <div class="form-group">
+              <label class="col-md-2 control-label">Hobbies</label>
+              <div class="col-sm-8">
+            <label formArrayName="hobby" *ngFor="let genre of userForm.controls['hobby'].controls; let i = index">
+              <input type="checkbox" [formControlName]="i" >&nbsp;&nbsp;
+              {{ hobby[i].genre}}&nbsp;&nbsp;&nbsp;
+            </label>
+            </div>
+            </div>
     
           
           <!--**********Phone No*********-->
@@ -149,9 +159,7 @@
                 <span *ngIf="userForm.get('state').errors?.required">* State is required</span>
               </span>
             </div>
-          </div>
-    
-    
+          </div>       
     
           <!--**********zipcode*********-->
     
@@ -168,7 +176,7 @@
               </span>
             </div>
           </div>
-    
+              
           <!--**********Email*********-->
     
           <div class="form-group" [ngClass]="{'has-error' : userForm.get('email').errors 

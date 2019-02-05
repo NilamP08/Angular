@@ -1,6 +1,8 @@
 div {   
-    color:111111;    
-    padding: 10px;
+    color:111111; 
+    font-family:Didot,serif; 
+    font-style: oblique;   
+   
   }
   
   div.first {
@@ -16,7 +18,8 @@ div {
 
   }
   .form-control{
-    box-shadow: 0 7px 10px 0 rgba(107, 105, 105, 0.9);
+    box-shadow: 0 2px 0 0 rgba(107, 105, 105, 0.9);
+    
   }
   span{
     font-size: 20px;
@@ -29,12 +32,30 @@ div {
     font-size: 16px;
   }
   input[type="checkbox"]{
-    width: 20px; /*Desired width*/
-    height: 20px; /*Desired height*/
-    cursor: pointer;   
+    width: 20px; 
+    height: 20px; 
+   
   }
   input[type="radio"]{
-    width: 15px; /*Desired width*/
-    height: 15px; /*Desired height*/
+    width: 20px; 
+    height: 20px; 
     cursor: pointer;   
   }
+  .link{
+    padding-bottom:40px;
+    text-align: left;
+    display: inline-block
+
+  }
+  li{
+
+    padding-left: 0px;
+    
+  }
+  li:hover{
+    box-shadow: 0 9px 18px 0 rgba(0,0,0,0.4);
+}
+button:hover{
+  box-shadow: 0 9px 18px 0 rgba(0,0,0,0.4);
+ }
+ 

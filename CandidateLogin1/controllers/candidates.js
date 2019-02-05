@@ -9,17 +9,16 @@ var getone = require("./getone");
 var set;
 
 var candidates = {
-  show: function(req, res) {
+  show: function (req, res) {
     res.status(200).json({ status: "success", message: "Success" });
   },
-
   /*
    *
    *getall function to show all data
    */
-  getAll: function(req, res) {
+  getAll: function (req, res) {
     console.log("inside the GetAll");
-    candidateModel.find(function(err, docs) {
+    candidateModel.find(function (err, docs) {
       if (err) {
         res.status(500).json({
           status: "error",
@@ -33,9 +32,8 @@ var candidates = {
       }
     });
   },
-
-  getOne: function(req, res) {
-    candidateModel.findById(req.params.id, function(err, doc) {
+  getOne: function (req, res) {
+    candidateModel.findById(req.params.id, function (err, doc) {
       if (err) {
         res.status(500).json({
           status: "error",
@@ -49,20 +47,18 @@ var candidates = {
       }
     });
   },
-
   /*
    *
    *create function accepts data of candidates
    */
-
-  create: function(req, res) {
+  create: function (req, res) {
     var flag = null;
     var candidate = new candidateModel();
     candidate.firstname = req.body.firstname;
     candidate.lastname = req.body.lastname;
     candidate.birthdate = req.body.birthdate.slice(0, 10);
     candidate.gender = req.body.gender;
-    candidate.hobies = filter_array(req.body.hobies);
+    candidate.hobby = filter_array(req.body.hobby);
     candidate.phoneNo = req.body.phoneNo;
     candidate.address = req.body.address;
     candidate.city = req.body.city;
@@ -74,7 +70,7 @@ var candidates = {
     candidate.username = req.body.username;
     candidate.pic = this.set;
 
-    candidateModel.find(function(err, docs) {
+    candidateModel.find(function (err, docs) {
       if (err) {
         res.status(500).json({
           status: "error",
@@ -111,7 +107,7 @@ var candidates = {
         });
       } else {
         console.log("unique");
-        candidate.save(function(err) {
+        candidate.save(function (err) {
           if (err) {
             res.status(500).json({
               status: "error",
@@ -129,7 +125,6 @@ var candidates = {
       }
     });
   },
-
   /*
    *
    *loginCheck function validates whether username and pasword is right or wrong
@@ -177,13 +172,13 @@ var candidates = {
   },
   */
 
-  logincheck: function(req, res) {
+  logincheck: function (req, res) {
     console.log(" @@@ Inside logincheck");
     candidateModel.findOne(
       {
         $and: [{ username: req.body.username }, { password: req.body.password }]
       },
-      function(err, user) {
+      function (err, user) {
         console.log("***********************************");
         //console.log(user);
 
@@ -194,6 +189,7 @@ var candidates = {
             docs: ""
           });
         } else {
+          console.log(user._id);
           var payload = { _id: user._id };
           //var secret = config.secretKey;
           var token = jwt.encode(payload, config.secretKey);
@@ -209,19 +205,17 @@ var candidates = {
       }
     );
   },
-
   /*
    *
    *sendMail function use to send Mail to user to reset password
    */
-
-  sendmail: function(req, res) {
+  sendmail: function (req, res) {
     var flag = null;
     var candidate = new candidateModel();
     const cryptr = new Cryptr("nilampawar707");
     const encryptedString = cryptr.encrypt(req.body.email);
     candidate.email = req.body.email;
-    candidateModel.find(function(err, docs) {
+    candidateModel.find(function (err, docs) {
       if (err) {
         res.status(500).json({
           status: "error",
@@ -253,7 +247,7 @@ var candidates = {
           text: `To change your Password click here : \n http://localhost:4200/resetPassword/${encryptedString}  \n\n\n\n\n
           Note: This is an auto-generated mail. Please do not reply. `
         };
-        transporter.sendMail(mailOptions, function(error, info) {
+        transporter.sendMail(mailOptions, function (error, info) {
           if (error) {
             console.log(error);
           } else {
@@ -274,19 +268,17 @@ var candidates = {
       }
     });
   },
-
   /*
    *
    *resetPassword function use to send Mail to user to reset password
    */
-
-  resetpassword: function(req, res) {
+  resetpassword: function (req, res) {
     var flag = null;
     var candidate = new candidateModel();
 
     const cryptr = new Cryptr("nilampawar707");
     candidate.email = cryptr.decrypt(req.body.email);
-    candidateModel.find(function(err, docs) {
+    candidateModel.find(function (err, docs) {
       if (err) {
         res.status(500).json({
           status: "error",
@@ -311,7 +303,7 @@ var candidates = {
             confirmPassword: req.body.password
           }
         };
-        candidateModel.updateOne(myquery, newvalues, function(err, res) {
+        candidateModel.updateOne(myquery, newvalues, function (err, res) {
           if (err) {
             console.log("not document updated");
           } else {
@@ -336,20 +328,19 @@ var candidates = {
    *
    *uploadPicture function use to upload picture.
    */
-
-  uploadPiture: function(req, res) {
+  uploadPiture: function (req, res) {
     var storage = multer.diskStorage({
-      destination: function(req, file, cb) {
+      destination: function (req, file, cb) {
         cb(null, "uploads/");
       },
-      filename: function(req, file, cb) {
+      filename: function (req, file, cb) {
         cb(null, file.fieldname + "-" + file.originalname);
       }
     });
 
     var upload = multer({
       storage: storage,
-      fileFilter: function(req, file, callback) {
+      fileFilter: function (req, file, callback) {
         console.log(file.mimetype);
         if (
           file.mimetype === "image/png" ||
@@ -366,7 +357,7 @@ var candidates = {
       }
     }).single("pic");
 
-    upload(req, res, function(err) {
+    upload(req, res, function (err) {
       // this.set = req.file.path;
       if (err) {
         res.status(200).json({
@@ -385,7 +376,7 @@ var candidates = {
     });
   },
 
-  updateinfo: function(req, res) {
+  updateinfo: function (req, res) {
     console.log("updateinfoooooooooooo");
     //var candidate = new candidateModel();
     var token = req.body.token || req.headers["token"];
@@ -397,7 +388,7 @@ var candidates = {
         lastname: req.body.lastname,
         birthdate: req.body.birthdate.slice(0, 10),
         gender: req.body.gender,
-        // hobies: filter_array(req.body.hobies),
+        hobby: filter_array(req.body.hobby),
         phoneNo: req.body.phoneNo,
         address: req.body.address,
         city: req.body.city,
@@ -410,7 +401,7 @@ var candidates = {
         // pic = this.set,
       }
     };
-    candidateModel.updateOne(myquery, newvalues, function(err) {
+    candidateModel.updateOne(myquery, newvalues, function (err) {
       if (err) {
         throw err;
       } else {
@@ -425,12 +416,12 @@ var candidates = {
     });
   },
 
-  usercheck: function(req, res) {
+  usercheck: function (req, res) {
     candidateModel.findOne(
       {
         $and: [{ username: req.body.username }]
       },
-      function(err, user) {
+      function (err, user) {
         if (err || !user) {
           res.status(200).json({
             status: true
@@ -442,7 +433,28 @@ var candidates = {
         }
       }
     );
-  }
+  },
+  
+  emailcheck: function (req, res) {
+    candidateModel.findOne(
+      {
+        $and: [{ email: req.body.email }]
+      },
+      function (err, user) {
+        if (err || !user) {
+          res.status(200).json({
+            status: true
+          });
+        } else {
+          res.status(200).json({
+            status: false
+          });
+        }
+      }
+    );
+  },
+
+
 };
 
 /*

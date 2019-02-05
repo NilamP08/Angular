@@ -11,8 +11,10 @@ import{Router} from'@angular/router';
 })
 export class DashbordComponent implements OnInit {
 
+  
+
   info;
-  picname;
+  
   token;
   username;
 
@@ -21,16 +23,14 @@ export class DashbordComponent implements OnInit {
     private r:Router,
     private t:ToastrService) { }
 
-  ngOnInit() {
-  
+  ngOnInit() {  
     this.token=this.s.getToken();
    // this.username=this.s.getUser();
-    console.log(this.token);
-    
+    console.log(this.token);   
     
     this.s.showinfo(this.token).subscribe((res:any)=> { 
       this.info=res.user;
-      this.picname=this.info.pic;
+      
        // console.log(res.user.username);
       console.log(res.user);
       console.log(this.info);
@@ -50,7 +50,6 @@ export class DashbordComponent implements OnInit {
   logout(){
     this.s.logout();
     this.r.navigateByUrl('home/login');
-
   }
 
 

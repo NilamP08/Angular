@@ -49,17 +49,18 @@ export class UpdateComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    
     this.token = this.s.getToken();
     console.log(this.token);
-    //const formControls = this.hobby.map(control => new FormControl(false));
-
+    const formControls = this.hobby.map(control => new FormControl(false));
     this.userForm = this.fb.group(
       {
         firstname: ["", Validators.required],
         lastname: ["", Validators.required],
         birthdate: ["", Validators.required],
         gender: ["", Validators.required],
-        // hobby: new FormArray(formControls),
+        hobby: new FormArray(formControls),
         phoneNo: [
           "",
           [
@@ -105,11 +106,27 @@ export class UpdateComponent implements OnInit {
 
     this.s.showinfo(this.token).subscribe((res: any) => {
       console.log("update original info:", res.user);
+
+
+
+      this.userForm.patchValue({
+       
+        firstname:res.user.firstname,
+        lastname:res.user.lastname,
+        birthdate:res.user.birthdate,
+        gender:res.user.gender,
+        hobby:res.user.hobby,
+        phoneNo:res.user.phoneNo,
+        address:res.user.address,
+        city:res.user.city,
+        state:res.user.state,
+        zipcode:res.user.zipcode,
+        email:res.user.email,
+        password:res.user.password,
+        confirmPassword:res.user.confirmPassword
+      })
+  
     });
-
-
-
-
 
   }
 
@@ -145,6 +162,11 @@ export class UpdateComponent implements OnInit {
   }
 
   update() {
+     
+    const selectedPreferences = this.userForm.value.hobby
+    .map((checked, index) => checked ? this.hobby[index].genre : null);
+  this.userForm.controls['hobby'].patchValue(selectedPreferences);
+
     console.log(this.userForm.value);
     //////////add other data
     this.s.update(this.userForm.value).subscribe((res: any) => {

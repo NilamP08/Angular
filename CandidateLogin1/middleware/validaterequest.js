@@ -8,6 +8,7 @@ module.exports = function(req, res, next) {
     if (
       req.path == "/myapi/login/" ||
       req.path == "/myapi/states/" ||
+      req.path == "/myapi/state/" ||
       req.path == "/myapi/candidates/" ||
       req.path == "/myapi/sendmail/" ||
       req.path == "/myapi/resetpassword/" ||
@@ -15,7 +16,8 @@ module.exports = function(req, res, next) {
       req.path == "/myapi/getoneman/" ||
       req.path == "/myapi/update" ||
       req.path == "/myapi/candidate/" ||
-      req.path == "/myapi/usercheck/"
+      req.path == "/myapi/usercheck/" ||
+      req.path =="/myapi/checkemail"
     ) {
       console.log("inside iffff");
       next();

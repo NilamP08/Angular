@@ -20,11 +20,11 @@ export class LoginComponent implements OnInit {
     private t: ToastrService,
     private r: Router,
     private a: AuthGuard
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      username: ["", [Validators.required, Validators.pattern("^[a-z]*$")]],
+      username: ["", [Validators.required, Validators.pattern("^[a-z ]*$")]],
       password: ["", Validators.required]
     });
     if (this.s.isLoggednIn()) {
@@ -33,17 +33,12 @@ export class LoginComponent implements OnInit {
   }
 
   addLogin() {
-    //console.log(this.userForm.value);
     this.s.addLogin(this.loginForm.value).subscribe((res: any) => {
       console.log(res);
-      if (this.loginForm.valid) {
+      
+      if (res.status == true) {
         this.s.sendToken(res.token);
         console.log(res.token);
-        //this.s.sendUser(res.username);
-        //console.log(res.username);
-      }
-
-      if (res.status == true) {
         console.log(res.token);
         //console.log(res.alldata);
         this.r.navigate(["dashboard"]);
@@ -56,6 +51,15 @@ export class LoginComponent implements OnInit {
   }
 
   cancel() {
+    this.loginForm.setValue({
+      username: '',
+      password: ''
+    })
     this.r.navigateByUrl("home/login");
+  }
+
+  login() {
+    this.t.error("You are alredy on Login Page")
+
   }
 }

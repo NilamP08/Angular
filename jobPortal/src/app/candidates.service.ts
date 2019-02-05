@@ -14,9 +14,10 @@ export class CandidatesService {
   urlstate = "http://localhost:8080/myapi/states/";
   urlchangePassword = "http://localhost:8080/myapi/resetpassword/";
   urluploadimage = "http://localhost:8080/myapi/ProfilePicture/";
-  funurl = "http://localhost:8080/myapi/getoneman";
+  funurl = "http://localhost:8080/myapi/getoneman/";
   urlupdate="http://localhost:8080/myapi/update/";
   urlusercheck="http://localhost:8080/myapi/usercheck/";
+  urlemailcheck="http://localhost:8080/myapi/emailcheck/";
 
   private headerOptions: any = {
     "Content-type": "application/json"
@@ -73,7 +74,10 @@ export class CandidatesService {
 
   checkuser(username){
     return this.http.post(this.urlusercheck,username);
+  }
 
+  checkemail(email){
+    return this.http.post(this.urlemailcheck,email);
   }
   
 

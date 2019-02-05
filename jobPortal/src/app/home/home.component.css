@@ -1,0 +1,15 @@
+.link{
+    padding-bottom:40px;
+    text-align: left;
+    display: inline-block;
+  }
+li{
+    padding-left: 0px;
+ }
+  li:hover{
+    box-shadow: 0 9px 18px 0 rgba(0,0,0,0.4);
+}
+button:hover{
+  box-shadow: 0 9px 18px 0 rgba(0,0,0,0.4);
+ }
+ 

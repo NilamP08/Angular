@@ -1,6 +1,8 @@
 div {   
     color:111111;    
     padding: 10px;
+    font-family:Didot,serif; 
+    font-style: oblique;   
   }
 
   div.first {
@@ -15,7 +17,7 @@ div {
     background-color: rgb(173, 190, 190);
   }
   .form-control{
-    box-shadow: 0 8px 0 0 rgba(107, 105, 105, 0.9);
+    box-shadow: 0 2px 0 0 rgba(107, 105, 105, 0.9);
   }
   span{
     font-size: 20px;
@@ -23,3 +25,23 @@ div {
   label{
     font-size: 16px;
   }
+  .link{
+    padding-bottom:40px;
+    text-align: left;
+    display: inline-block
+
+  }
+  li{
+
+    padding-left: 0px;
+    
+  }
+  li:hover{
+    box-shadow: 0 9px 18px 0 rgba(0,0,0,0.4);
+}
+ button:hover{
+  box-shadow: 0 9px 18px 0 rgba(0,0,0,0.4);
+ }
+ input[type="checkbox"]{
+  margin-left:160px;  
+}

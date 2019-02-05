@@ -1,147 +1,145 @@
 <html>
-  <body background="" style="background-repeat: no-repeat">
-    <div style="background-image:'images.jpeg'">
-      <div class="container" style="color:888888">
-        <nav class="navbar">
-          <ul class="nav navbar-nav">
-            <li>
-              <a routerLinkActive="active" (click)="checkm()">Login</a>
-            </li>
 
-            <li>
-              <a routerLinkActive="active" (click)="updatecheck()"
-                >Update Information</a
-              >
-            </li>
-          </ul>
-        </nav>
-      </div>
 
-      <div *ngIf="info">
-        <div class="container" style="background-color: rgb(218, 132, 117)">
-          <nav class="navbar ">
-            <ul class="nav navbar-nav">
-              <h1>
-                Welcome
-                <h2>{{ info.firstname }} ({{ info.username }})</h2>
-              </h1>
-            </ul>
-          </nav>
-        </div>
-      </div>
+<nav class="navbar navbar-inverse" style="width: 100%; height: 79px; background-color: rgb(173, 190, 190);margin-bottom: 90px">
+  <div class="container">
+    <h1 style="padding-bottom:43px">Job Portal</h1>
+    <div>
+      <ul class="nav navbar-nav link" style="display: inline-block">
+        <li style="font-size: 20px;size: 20px">
+          <a style="color: black" href="home">
+            <span class="glyphicon glyphicon-home"></span>&nbsp;
+            Home
+          </a>
+        </li>
 
-      <div *ngIf="info">
-        <div class="container ">
-          <nav class="navbar">
-            <ul class="nav navbar-nav  col-sm-8">
-              <div *ngIf="info">
-                <div class="container-fluid img-thumbnail ">
-                  <div class="picture" style="text-align:center">
-                    <img
-                      src="http://localhost:8080/{{ picname }}"
-                      class="img-rounded"
-                    />
-                  </div>
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <li style="font-size: 20px">
+          <a style="color: black" href="home/registration">
+            <span class="glyphicon glyphicon-user"></span>
+            Registration
+          </a>
+        </li>
 
-                  <table class="table table-hover ">
-                    <tbody>
-                      <tr>
-                        <td><b> Name </b></td>
-                        <td>:-</td>
-                        <td>{{ info.firstname }}&nbsp;{{ info.lastname }}</td>
-                      </tr>
+        <li style="font-size: 20px">
+          <a routerLinkActive="active" (click)="checkm()" style="color: black">
+            <span class="glyphicon glyphicon-log-in"(click)="logout()"></span>
+             Login
+            </a>
+          </li>
 
-                      <tr>
-                        <td><b> Birth Date </b></td>
-                        <td>:-</td>
-                        <td>{{ info.birthdate }}</td>
-                      </tr>
+        <li style="font-size: 20px">
+          <a routerLinkActive="active" (click)="logout()" style="color: black">
+            <span class="glyphicon glyphicon-off"></span>
+            Logout
+          </a>
+        </li>
 
-                      <tr>
-                        <td><b> Gender </b></td>
-                        <td>:-</td>
-                        <td>{{ info.gender }}</td>
-                      </tr>
+        <li style="font-size: 20px">
+          <a routerLinkActive="active" (click)="updatecheck()" style="color: black">
+            <span class="glyphicon glyphicon-off"></span> 
+            Update information
+          </a>
+        </li>
 
-                      <tr>
-                        <td><b>Hobbies</b></td>
-                        <td>:-</td>
-                        <td>{{ info.hobby }}</td>
-                      </tr>
-
-                      <tr>
-                        <td><b>Phone number</b></td>
-                        <td>:-</td>
-                        <td>{{ info.phoneNo }}</td>
-                      </tr>
-
-                      <tr>
-                        <td><b>Address</b></td>
-                        <td>:-</td>
-                        <td>{{ info.address }}</td>
-                      </tr>
-
-                      <tr>
-                        <td><b>City</b></td>
-                        <td>:-</td>
-                        <td>{{ info.city }}</td>
-                      </tr>
-
-                      <tr>
-                        <td><b>State</b></td>
-                        <td>:-</td>
-                        <td>{{ info.state }}</td>
-                      </tr>
-
-                      <tr>
-                        <td><b>Zip code</b></td>
-                        <td>:-</td>
-                        <td>{{ info.zipcode }}</td>
-                      </tr>
-
-                      <tr>
-                        <td><b>Email Id </b></td>
-                        <td>:-</td>
-                        <td>{{ info.email }}</td>
-                      </tr>
-
-                      <tr>
-                        <td><b>Password</b></td>
-                        <td>:-</td>
-                        <td>{{ info.password }}</td>
-                      </tr>
-
-                      <tr>
-                        <td><b>Username</b></td>
-                        <td>:-</td>
-                        <td>{{ info.username }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </ul>
-          </nav>
-        </div>
-      </div>
-
-      <div class="container">
-        <nav class="navbar navbar-default">
-          <ul class="nav navbar-nav">
-            <p>
-              <button
-                type="button"
-                (click)="logout()"
-                class="btn btn-default btn-sm btn-danger"
-              >
-                <span class="glyphicon glyphicon-log-out"></span> Log out
-              </button>
-            </p>
-          </ul>
-        </nav>
-      </div>
+      </ul>
     </div>
-  </body>
+  </div>
+</nav>
+
+
+<body>
+  <div *ngIf="info">
+    <div class="container ">
+      <nav class="navbar">
+        <ul class="nav navbar-nav  col-sm-8">
+          <div *ngIf="info">
+            <div class="picture" style="text-align:center">
+              <img src="http://localhost:8080/{{ info.pic }}" class="img-square" />
+            </div>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <div class="container-fluid img-thumbnail first ">
+              <table class="table table-borderless">
+                <tbody>
+                  <tr>
+                    <td><b> Name </b></td>
+                    <td>:-</td>
+                    <td>{{ info.firstname }}&nbsp;{{ info.lastname }}</td>
+                  </tr>
+
+                  <tr>
+                    <td><b> Birth Date </b></td>
+                    <td>:-</td>
+                    <td>{{ info.birthdate }}</td>
+                  </tr>
+
+                  <tr>
+                    <td><b> Gender </b></td>
+                    <td>:-</td>
+                    <td>{{ info.gender }}</td>
+                  </tr>
+
+                  <tr>
+                    <td><b>Hobbies</b></td>
+                    <td>:-</td>
+                    <td>{{ info.hobby }}</td>
+                  </tr>
+
+                  <tr>
+                    <td><b>Phone number</b></td>
+                    <td>:-</td>
+                    <td>{{ info.phoneNo }}</td>
+                  </tr>
+
+                  <tr>
+                    <td><b>Address</b></td>
+                    <td>:-</td>
+                    <td>{{ info.address }}</td>
+                  </tr>
+
+                  <tr>
+                    <td><b>City</b></td>
+                    <td>:-</td>
+                    <td>{{ info.city }}</td>
+                  </tr>
+
+                  <tr>
+                    <td><b>State</b></td>
+                    <td>:-</td>
+                    <td>{{ info.state }}</td>
+                  </tr>
+
+                  <tr>
+                    <td><b>Zip code</b></td>
+                    <td>:-</td>
+                    <td>{{ info.zipcode }}</td>
+                  </tr>
+
+                  <tr>
+                    <td><b>Email Id </b></td>
+                    <td>:-</td>
+                    <td>{{ info.email }}</td>
+                  </tr>
+
+                  <tr>
+                    <td><b>Password</b></td>
+                    <td>:-</td>
+                    <td>{{ info.password }}</td>
+                  </tr>
+
+                  <tr>
+                    <td><b>Username</b></td>
+                    <td>:-</td>
+                    <td>{{ info.username }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</body>
+
 </html>
