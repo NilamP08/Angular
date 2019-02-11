@@ -237,7 +237,7 @@ var candidates = {
           service: "gmail",
           auth: {
             user: "nilam@amdev.in",
-            pass: "asdfghjkl"
+            pass: "*********"
           }
         });
         var mailOptions = {
